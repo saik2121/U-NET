@@ -3,6 +3,14 @@ import torch
 from torch.utils.data import DataLoader
 from dataset import CassavaDataset
 
+def save_checkpoint(state, filename="my_checkpoint.pth.tar"):
+    print("=> Saving checkpoint")
+    torch.save(state, filename)
+
+def load_checkpoint(checkpoint, model):
+    print("=> Loading checkpoint")
+    model.load_state_dict(checkpoint["state_dict"])
+
 def get_loaders(train_dir,train_mask_dir,val_dir,val_mask_dir,train_transform, val_transform,batch_size,num_workers):
     train_ds=CassavaDataset(train_dir,train_mask_dir,train_transform)
     train_loader=DataLoader(train_ds,batch_size=batch_size,num_workers=num_workers,shuffle=True)
