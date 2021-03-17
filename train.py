@@ -90,6 +90,13 @@ def main():
 
     for i in range(NUM_EPOCHS):
         train_fn(train_loader,model,optimiser,loss_fn)
+        
+        checkpoint = {
+            "state_dict": model.state_dict(),
+            "optimizer":optimizer.state_dict(),
+        }
+        save_checkpoint(checkpoint)
+
 
         check_acc(val_loader, model, device=DEVICE)
 
